@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:title="Funcionalidades">
+            <menu>
+                <item
+                    android:id="@+id/nav_menu"
+                    android:icon="@drawable/home_icon"
+                    android:iconTint="@color/green2"
+                    android:title="Inicio" />
+                <item
+                    android:id="@+id/nav_guia"
+                    android:icon="@drawable/guia_icon"
+                    android:title="Guía de Servicio" />
+                <item
+                    android:id="@+id/nav_dashboard"
+                    android:icon="@drawable/dashboard_icon"
+                    android:title="Dashboard" />
+                <item
+                    android:id="@+id/nav_firma"
+                    android:icon="@drawable/firma_icon"
+                    android:title="Firma de guías" />
+
+            </menu>
+        </item>
+
+    </group>
+
+    <group android:checkableBehavior="single">
+
+        <item android:title="Opciones de sistema">
+            <menu>
+                <item
+                    android:id="@+id/nav_config"
+                    android:icon="@drawable/config_icon"
+                    android:title="Configuración" />
+
+                <item
+                    android:id="@+id/nav_soporte"
+                    android:icon="@drawable/soporte_icon"
+                    android:title="Soporte" />
+            </menu>
+        </item>
+
+
+    </group>
+    <group>
+        <item android:title="Opciones de Sesión">
+            <menu>
+                <item
+                    android:id="@+id/nav_cerrar"
+                    android:icon="@drawable/cerrar_icon"
+                    android:title="Cerrar sesión" />
+
+            </menu>
+        </item>
+    </group>
+
+
+</menu>

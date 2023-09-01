@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Prueba2</string>
+    <string name="login">Guías de servicio</string>
+    <string name="enter_email">Ingresar email</string>
+    <string name="enter_password">Ingresa tu contraseña</string>
+    <string name="submit">Enviar</string>
+    <string name="error_while_logging_in">Error al iniciar sesión</string>
+    <string name="registration">Registro</string>
+    <string name="enter_name">Ingresa tu nombre</string>
+    <string name="name">Nombre</string>
+    <string name="email">Correo</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="fetch_user">Buscar usuario\n</string>
+    <string name="click_here_to_register">Click para registrarse</string>
+    <string name="presiona_aqui_para_ir_al_login">Presiona aqui para ir al Login</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+</resources>

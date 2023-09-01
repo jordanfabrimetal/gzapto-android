@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#FDF9F9" /> <!-- Cambia este color al color que desees como fondo circular -->
+    <stroke android:width="2dp" android:color="#FF0000" /> <!-- Cambia este color al color que desees para el borde -->
+</shape>
