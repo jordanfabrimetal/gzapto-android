@@ -71,7 +71,7 @@ public class dashboard extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     ImageView imgShine, imgShine2, imgShine3, ivHamburgesa;
     LinearLayout llAnio, llMes, llDia;
-    ProgressBar pb1, pb2, pb3;
+    ProgressBar pb1, pb2, pb3, pbGrafico;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -91,6 +91,7 @@ public class dashboard extends AppCompatActivity {
         imgShine3 = findViewById(R.id.imgShine3);
         llAnio = findViewById(R.id.llAnnio);
         llMes = findViewById(R.id.llMes);
+        pbGrafico = findViewById(R.id.pbGrafico);
         llDia = findViewById(R.id.llDia);
         backgroundOverlay = findViewById(R.id.background_overlay);
         pb1 = findViewById(R.id.pb1);
@@ -117,6 +118,10 @@ public class dashboard extends AppCompatActivity {
                 finish();
             } else if (itemId == R.id.nav_menu) {
                 Intent i = new Intent(getApplicationContext(), menu.class);
+                startActivity(i);
+                finish();
+            } else if (itemId == R.id.nav_guia){
+                Intent i = new Intent(getApplicationContext(), guiaServicio.class);
                 startActivity(i);
                 finish();
             }
@@ -186,6 +191,8 @@ public class dashboard extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 try {
+                    pbGrafico.setVisibility(View.GONE);
+                    barChart.setVisibility(View.VISIBLE);
                     Log.d("response", response);
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject datosObject = jsonObject.getJSONObject("datos");
@@ -385,9 +392,11 @@ public class dashboard extends AppCompatActivity {
         if(muestra==true){
             appBarLayout.setVisibility(View.VISIBLE);
             muestra = false;
+            backgroundOverlay.setVisibility(View.VISIBLE);
         }else if(muestra == false){
             appBarLayout.setVisibility(View.GONE);
             muestra = true;
+            backgroundOverlay.setVisibility(View.GONE);
         }
     }
 }

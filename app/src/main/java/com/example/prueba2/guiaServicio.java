@@ -1,17 +1,41 @@
 package com.example.prueba2;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.transition.Slide;
+import android.transition.TransitionManager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +48,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.prueba2.popups.PopLlamada;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,10 +64,19 @@ import java.util.Map;
 public class guiaServicio extends AppCompatActivity {
     private String response;
     private EditText etCodigo, etTipo, etMarca, etModelo, etCodeCliente, etGarantia, etNomEd, etDireccion, etTipoSer, etEstado, etObservacion;
-    private TextView tvServicio, tvCodigo, tvTipo, tvMarca, tvModelo, tvCargo, tvNomTec, tvApeTec, tvRutTec, tvNomEdi, tvDireccion, tvServiS, tvTipoServ, tvFechIni, tvHoraIni, tvObservacion, tvCantAyu, tvAyu1, tvAyu2;
+    private TextView tvServicio, tvCodigo, tvTipo, tvMarca, tvModelo, tvCargo, tvNomTec, tvApeTec, tvRutTec, tvInicio, tvNomEdi, tvDireccion, tvServiS, tvTipoServ, tvFechIni, tvHoraIni, tvObservacion, tvCantAyu, tvAyu1, tvAyu2;
     private ConstraintLayout clConfirma, clSeleccion, clCbo, clFinaliza;
     private List<JSONObject> opcionesJson = new ArrayList<>();
     private Spinner spCantAyud, spAyu1, spAyu2, spPresupueto;
+    private ProgressBar pb5;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    ActionBarDrawerToggle actionBarDrawerToggle;
+    AppBarLayout appBarLayout;
+    View backgroundOverlay;
+    boolean muestra = true;
+    ImageView imgInicio, ivHamburgesa;
+    Dialog llamada;
 
     private SharedPreferences sharedPreferences;
 
@@ -52,7 +88,46 @@ public class guiaServicio extends AppCompatActivity {
         clSeleccion = findViewById(R.id.clSeleccion);
         clConfirma = findViewById(R.id.clConfirma);
         clFinaliza = findViewById(R.id.clFinaliza);
+        llamada = new Dialog(this);
+        backgroundOverlay = findViewById(R.id.background_overlay3);
+        ivHamburgesa = findViewById(R.id.ivHamburgesa3);
+        appBarLayout = findViewById(R.id.appBarLayout);
 
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        );
+
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        //actionBarDrawerToggle.syncState();
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if(itemId == R.id.nav_dashboard){
+                Intent i = new Intent(getApplicationContext(), dashboard.class);
+                startActivity(i);
+                finish();
+            } else if (itemId == R.id.nav_menu) {
+                Intent i = new Intent(getApplicationContext(), menu.class);
+                startActivity(i);
+                finish();
+            } else if (itemId == R.id.nav_guia){
+                Intent i = new Intent(getApplicationContext(), guiaServicio.class);
+                startActivity(i);
+                finish();
+            }
+
+            drawerLayout.closeDrawers();
+            return true;
+        });
+
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.setHomeAsUpIndicator(R.drawable.bot);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         clCbo.setVisibility(View.GONE);
         clSeleccion.setVisibility(View.GONE);
@@ -63,8 +138,10 @@ public class guiaServicio extends AppCompatActivity {
         tvAyu2 = findViewById(R.id.tvAyu2);
         spAyu1 = findViewById(R.id.spAyu1);
         spAyu2 = findViewById(R.id.spAyu2);
+        imgInicio = findViewById(R.id.imgInicio);
+        tvInicio = findViewById(R.id.tvInicio);
         spPresupueto = findViewById(R.id.spPresupueto);
-
+        pb5 = findViewById(R.id.pb5);
         //estructurarInputs();
         sharedPreferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         int idSAP = sharedPreferences.getInt("idSAP", 0);
@@ -77,6 +154,7 @@ public class guiaServicio extends AppCompatActivity {
 
         //obtenerServicios();
         //setupListeners();
+        manageBlinkEffect();
         levantarGuias();
 
     }
@@ -398,7 +476,7 @@ public class guiaServicio extends AppCompatActivity {
 
     }
 
-    public void iniciarServicio(View v){
+    public void iniciarServicio(View v) {
 
         String subject = etObservacion.getText().toString();
         String nomen = etCodeCliente.getText().toString();
@@ -414,12 +492,12 @@ public class guiaServicio extends AppCompatActivity {
         String gps = sharedPreferences.getString("gps", "");
         String codclisap = sharedPreferences.getString("codclisap", "");
         int equipmentcardnum = sharedPreferences.getInt("equipmentcardnum", 0);
-        if(codclisap != nomen){
+        if (codclisap != nomen) {
             Toast.makeText(this, "SALUDA A MI AMIGITO!", Toast.LENGTH_SHORT).show();
-            modnomenclatura = "&nomen="+nomen+"&codascen="+equipmentcardnum;
+            modnomenclatura = "&nomen=" + nomen + "&codascen=" + equipmentcardnum;
         }
 
-        Log.d("Iniciar sesion prueba 01", servicecallID+' '+customerCode+' '+itemcode+' '+fm+' '+estado+' '+gps+' '+subject+' '+nomen);
+        Log.d("Iniciar sesion prueba 01", servicecallID + ' ' + customerCode + ' ' + itemcode + ' ' + fm + ' ' + estado + ' ' + gps + ' ' + subject + ' ' + nomen);
 
         String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/servicio.php" +
                 "?op=iniciarsapnormalizacion" +
@@ -452,7 +530,7 @@ public class guiaServicio extends AppCompatActivity {
 
     }
 
-    public void levantarGuias(){
+    public void levantarGuias() {
         String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/servicio.php?op=verificarsapandroid";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -463,11 +541,13 @@ public class guiaServicio extends AppCompatActivity {
                         Log.d("Response de levate de guias: ", response);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
+                            Log.d("Response mardito", response);
                             int accede = jsonObject.getInt("accede");
 
-                            if(accede == 1){
+                            if (accede == 1) {
                                 Toast.makeText(getApplicationContext(), "Es 1 carajo", Toast.LENGTH_SHORT).show();
-                                clConfirma.setVisibility(View.VISIBLE);
+                                pb5.setVisibility(View.GONE);
+                               // clConfirma.setVisibility(View.VISIBLE);
                                 tvServicio = findViewById(R.id.tvServicio);
                                 tvCodigo = findViewById(R.id.tvCodigo);
                                 tvTipo = findViewById(R.id.tvTipo);
@@ -509,12 +589,26 @@ public class guiaServicio extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putString("servicioini", servicioini);
                                 editor.putString("codigoEquipo", codigoEquipo);
+                                editor.putString("tipoEquipo", tipoEquipo);
+                                editor.putString("modeloEquipo", modeloEquipo);
+                                editor.putString("cargoTecnico", cargoTecnico);
+                                editor.putString("nombresTecnico", nombresTecnico);
+                                editor.putString("apellidoTecnico", apellidoTecnico);
+                                editor.putString("marcaEquipo",marcaEquipo);
+                                editor.putString("rutTecnico", rutTecnico);
+                                editor.putString("nombreEdificio", nombreEdificio);
+                                editor.putString("direccionEdificio", direccionEdificio);
+                                editor.putString("tipoServicio", tipoServicio);
+                                editor.putString("servicioServicio", servicioServicio);
+                                editor.putString("fechainicioServicio", fechainicioServicio);
+                                editor.putString("horainicioServicio", horainicioServicio);
+                                editor.putString("observacionServicio", observacionServicio);
                                 editor.putString("servillo", servillo);
                                 editor.putString("actCodigo", actCodigo);
                                 editor.putString("swBtnFin", swBtnFin);
                                 editor.apply();
 
-                                tvServicio.setText("Servicio: # "+servicioini);
+                                tvServicio.setText("Servicio: # " + servicioini);
                                 tvCodigo.setText(codigoEquipo);
                                 tvTipo.setText(tipoEquipo);
                                 tvMarca.setText(marcaEquipo);
@@ -531,17 +625,66 @@ public class guiaServicio extends AppCompatActivity {
                                 tvHoraIni.setText(horainicioServicio);
                                 tvObservacion.setText(observacionServicio);
 
+                                AlertDialog dialogo = new AlertDialog.Builder(guiaServicio.this)
+                                        .setPositiveButton("Si, proseguir", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Intent i = new Intent(getApplicationContext(), inicioServicio.class);
+                                                startActivity(i);
+                                                finish();
+                                                /*
+                                                Slide slide = new Slide();
+                                                slide.setSlideEdge(Gravity.END);
+                                                slide.setDuration(500);
+                                                TransitionManager.beginDelayedTransition(clBuscar, slide);
+                                                clBuscar.setVisibility(View.GONE);
+
+                                                new Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        clAnimada.setVisibility(View.VISIBLE);
+                                                        new Handler().postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                clAnimada.setVisibility(View.GONE);
+                                                            }
+                                                        }, 3000);
+                                                    }
+                                                }, 500);
+                                                new Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Intent i = new Intent(getApplicationContext(), menu.class);
+                                                        startActivity(i);
+                                                        finish();
+                                                    }
+                                                }, 800);*/
+                                            }
+                                        })
+                                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        .setTitle("Tienes un servicio iniciado")
+                                        .setMessage("¿Deseas proseguir con este servicio?")
+                                        .create();
+                                dialogo.show();
 
 
                             } else if (accede == 2) {
+                                pb5.setVisibility(View.GONE);
                                 Toast.makeText(getApplicationContext(), "Es 2 coñooo", Toast.LENGTH_SHORT).show();
-                                clCbo.setVisibility(View.VISIBLE);
-                                clSeleccion.setVisibility(View.VISIBLE);
-                                estructurarInputs();
-                                obtenerServicios();
-                                setupListeners();
+                                //clCbo.setVisibility(View.VISIBLE);
+                                //clSeleccion.setVisibility(View.VISIBLE);
+                                //estructurarInputs();
+                                //obtenerServicios();
+                                //setupListeners();
+                                imgInicio.setVisibility(View.VISIBLE);
+                                tvInicio.setVisibility(View.VISIBLE);
                             }
-                        } catch (JSONException e){
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
@@ -549,14 +692,14 @@ public class guiaServicio extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "error: "+error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "error: " + error, Toast.LENGTH_SHORT).show();
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                int idSAP = sharedPreferences.getInt("idSAP",0);
+                int idSAP = sharedPreferences.getInt("idSAP", 0);
                 Log.d("ID SAP SHARED2", String.valueOf(idSAP));
                 params.put("idSAP_form", String.valueOf(idSAP));
                 return params;
@@ -570,14 +713,14 @@ public class guiaServicio extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
-    public void terminarServicio(View v){
-            //servicioini(idservicio), codigoEquipo(idacensor), servillo(tipoencuesta), actCodigo(idactividad), swBtnFin
+    public void terminarServicio(View v) {
+        //servicioini(idservicio), codigoEquipo(idacensor), servillo(tipoencuesta), actCodigo(idactividad), swBtnFin
         String servicioini = sharedPreferences.getString("servicioini", "");
         String codigoEquipo = sharedPreferences.getString("codigoEquipo", "");
         String servillo = sharedPreferences.getString("servillo", "");
         String actCodigo = sharedPreferences.getString("actCodigo", "");
         String swBtnFin = sharedPreferences.getString("swBtnFin", "");
-        Log.d("COMPROBACION COMPRAVACION", servicioini + "CodEq: "+codigoEquipo+"servillo: "+servillo+" actCod: "+actCodigo+ " swBtnFin: "+swBtnFin);
+        Log.d("COMPROBACION COMPRAVACION", servicioini + "CodEq: " + codigoEquipo + "servillo: " + servillo + " actCod: " + actCodigo + " swBtnFin: " + swBtnFin);
 
         clConfirma.setVisibility(View.GONE);
         clFinaliza.setVisibility(View.VISIBLE);
@@ -592,9 +735,10 @@ public class guiaServicio extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.d("RESPUESTA GUIAPORCERRAR", response);
                         try {
+                            Log.d("Respuesta de guiaPorCerrar: ", response);
                             JSONObject jsonResponse = new JSONObject(response);
                             int cerrarguia = jsonResponse.getInt("cerrarguia");
-                            if(cerrarguia == 1){
+                            if (cerrarguia == 1) {
                                 Toast.makeText(getApplicationContext(), "Exito, se puede cerrar esta guia", Toast.LENGTH_SHORT).show();
 
                                 StringRequest request2 = new StringRequest(Request.Method.POST, url2,
@@ -605,7 +749,7 @@ public class guiaServicio extends AppCompatActivity {
                                                 try {
                                                     JSONArray jsonArray = new JSONArray(response);
                                                     List<String> estados = new ArrayList<>();
-                                                    for (int i = 0; i<jsonArray.length(); i++){
+                                                    for (int i = 0; i < jsonArray.length(); i++) {
                                                         JSONObject estadoJson = jsonArray.getJSONObject(i);
                                                         String value = estadoJson.getString("value");
                                                         String name = estadoJson.getString("name");
@@ -650,7 +794,7 @@ public class guiaServicio extends AppCompatActivity {
                                                 etEstadoF = findViewById(R.id.etEstadoF);
                                                 etObsF = findViewById(R.id.etObsF);
 
-                                                try{
+                                                try {
                                                     JSONObject jsonObject = new JSONObject(response);
                                                     String codigoEquipo = jsonObject.getString("codigo");
                                                     String tascensorfi = jsonObject.getString("tipoequipo");
@@ -674,7 +818,7 @@ public class guiaServicio extends AppCompatActivity {
                                                     etTipSerF.setText(tserviciofi);
                                                     etEstadoF.setText(estadoinifi);
                                                     etObsF.setText(observacioniniso);
-                                                } catch (JSONException e){
+                                                } catch (JSONException e) {
                                                     Log.d("Error en INFOGUIASAP", e.toString());
                                                 }
                                             }
@@ -685,9 +829,9 @@ public class guiaServicio extends AppCompatActivity {
                                                 Log.d("Error en INFOGUIASAP", error.toString());
                                             }
                                         }
-                                ){
+                                ) {
                                     @Override
-                                    protected Map<String, String> getParams(){
+                                    protected Map<String, String> getParams() {
                                         Map<String, String> params = new HashMap<>();
                                         params.put("idserviciofi", servicioini);
                                         params.put("idactividad", actCodigo);
@@ -695,10 +839,10 @@ public class guiaServicio extends AppCompatActivity {
                                     }
                                 };
                                 Volley.newRequestQueue(guiaServicio.this).add(request3);
-                            }else{
+                            } else {
                                 Toast.makeText(getApplicationContext(), "Esta guia no se puede cerrar", Toast.LENGTH_SHORT).show();
                             }
-                        } catch (JSONException e){
+                        } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -709,10 +853,10 @@ public class guiaServicio extends AppCompatActivity {
                         Log.d("Error en GUIAPORCERRAR", error.toString());
                     }
                 }
-        ){
+        ) {
             @Override
-            protected Map<String, String> getParams(){
-                Map<String, String> params=new HashMap<>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
                 params.put("idactividad", actCodigo);
                 return params;
             }
@@ -722,7 +866,7 @@ public class guiaServicio extends AppCompatActivity {
 
     }
 
-    public void selectTecnico(Spinner spTecnico){
+    public void selectTecnico(Spinner spTecnico) {
         String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/servicio.php?op=selectTecnicoandroid";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -759,10 +903,10 @@ public class guiaServicio extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
     }
 
-     public void setupAyudantes(){
+    public void setupAyudantes() {
 
-       List<String> opciones = new ArrayList<>();
-       opciones.add("SELECCIONE OPCIÓN");
+        List<String> opciones = new ArrayList<>();
+        opciones.add("SELECCIONE OPCIÓN");
         opciones.add("Si");
         opciones.add("No");
 
@@ -776,13 +920,13 @@ public class guiaServicio extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 String seleccion = adapterView.getItemAtPosition(position).toString();
-                if(seleccion.equals("Si")){
+                if (seleccion.equals("Si")) {
 
-                   Toast.makeText(getApplicationContext(), "OJO", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "OJO", Toast.LENGTH_SHORT).show();
                     tvCantAyu.setVisibility(View.VISIBLE);
                     spCantAyud.setVisibility(View.VISIBLE);
 
-                }else{
+                } else {
                     spCantAyud.setVisibility(View.GONE);
                     tvCantAyu.setVisibility(View.GONE);
                 }
@@ -796,7 +940,7 @@ public class guiaServicio extends AppCompatActivity {
         });
     }
 
-    public void setupCantAyudantes(){
+    public void setupCantAyudantes() {
 
         List<String> opciones = new ArrayList<>();
         opciones.add("Seleccione cantidad de ayudantes");
@@ -812,12 +956,12 @@ public class guiaServicio extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 String seleccion = adapterView.getItemAtPosition(position).toString();
-                if(seleccion.equals("1")){
+                if (seleccion.equals("1")) {
                     Toast.makeText(getApplicationContext(), "Marcaste 1", Toast.LENGTH_SHORT).show();
                     tvAyu1.setVisibility(View.VISIBLE);
                     spAyu1.setVisibility(View.VISIBLE);
                     selectTecnico(spAyu1);
-                }else  if(seleccion.equals("2")){
+                } else if (seleccion.equals("2")) {
                     Toast.makeText(getApplicationContext(), "Marcaste 2", Toast.LENGTH_SHORT).show();
                     tvAyu1.setVisibility(View.VISIBLE);
                     spAyu1.setVisibility(View.VISIBLE);
@@ -825,7 +969,7 @@ public class guiaServicio extends AppCompatActivity {
                     spAyu2.setVisibility(View.VISIBLE);
                     selectTecnico(spAyu1);
                     selectTecnico(spAyu2);
-                }else{
+                } else {
                     tvAyu1.setVisibility(View.GONE);
                     spAyu1.setVisibility(View.GONE);
                     tvAyu2.setVisibility(View.GONE);
@@ -841,7 +985,7 @@ public class guiaServicio extends AppCompatActivity {
         });
     }
 
-    public void setupPresupuesto(){
+    public void setupPresupuesto() {
         List<String> opciones = new ArrayList<>();
         opciones.add("SELECCIONE OPCIÓN");
         opciones.add("SI");
@@ -855,10 +999,10 @@ public class guiaServicio extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 String seleccion = adapterView.getItemAtPosition(position).toString();
-                if(seleccion.equals("SI")){
-                    
+                if (seleccion.equals("SI")) {
+
                 } else if (seleccion.equals("NO")) {
-                    
+
                 }
             }
 
@@ -870,6 +1014,74 @@ public class guiaServicio extends AppCompatActivity {
     }
 
 
+    public void irPop(View v) {
+        Intent view = new Intent(getApplicationContext(), PopLlamada.class);
+        startActivity(view);
+    }
+
+    public void manageBlinkEffect(){
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvInicio, "scaleX", 1.0f, 1.2f, 1.0f);
+        scaleX.setDuration(800);
+        scaleX.setRepeatMode(ValueAnimator.REVERSE);
+        scaleX.setRepeatCount(Animation.INFINITE);
+
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(tvInicio, "scaleY", 1.0f, 1.2f, 1.0f);
+        scaleX.setDuration(800);
+        scaleX.setRepeatMode(ValueAnimator.REVERSE);
+        scaleX.setRepeatCount(Animation.INFINITE);
 
 
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(scaleX, scaleY);
+        animatorSet.start();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }else {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        actionBarDrawerToggle.syncState();
+    }
+
+    public void mostrarMenu(View v){
+
+        if(muestra==true){
+            appBarLayout.setVisibility(View.VISIBLE);
+            muestra = false;
+            backgroundOverlay.setVisibility(View.VISIBLE);
+        }else if(muestra == false){
+            appBarLayout.setVisibility(View.GONE);
+            muestra = true;
+            backgroundOverlay.setVisibility(View.GONE);
+        }
+    }
+
+    /*
+    public void irPop(View v) {
+        TextView txtclose;
+        Button btnFollow;
+        llamada.setContentView(R.layout.popllamada);
+        txtclose = (TextView) llamada.findViewById(R.id.txtclose);
+        //Button = (Button) llamada.findViewById(R.id.)
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llamada.dismiss();
+            }
+        });
+        llamada.show();
+    }
+*/
 }

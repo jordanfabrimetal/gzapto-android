@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.prueba2.popups.PopLlamada;
+
 
 public class menu extends AppCompatActivity {
 
@@ -30,6 +32,7 @@ public class menu extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         textViewNombre = findViewById(R.id.tvNombre);
+
 
         tvNombre = findViewById(R.id.tvNombre);
 
@@ -48,6 +51,12 @@ public class menu extends AppCompatActivity {
 
     }
 
+    public void akak(View v){
+        Intent i = new Intent(getApplicationContext(), PopLlamada.class);
+        startActivity(i);
+        finish();
+    }
+
     public void logout(View v){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("logged", false);
@@ -59,6 +68,12 @@ public class menu extends AppCompatActivity {
 
     public void irDashboard(View v){
         Intent i = new Intent(getApplicationContext(), dashboard.class);
+        startActivity(i);
+        finish();
+    }
+
+    public void abrirGuia(View v){
+        Intent i = new Intent(getApplicationContext(), guiaServicio.class);
         startActivity(i);
         finish();
     }
