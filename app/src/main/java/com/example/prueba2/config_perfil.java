@@ -82,8 +82,8 @@ public class config_perfil extends AppCompatActivity {
         SignatureView signatureFirma = findViewById(R.id.signatureFirma);
         ImageView imageView22 = findViewById(R.id.imageView22);
         ConstraintLayout llFirma = findViewById(R.id.llFirma);
-        tvCorreoApe = findViewById(R.id.tvCorreoApe);
-        etNameConf = findViewById(R.id.etNameConf);
+        //tvCorreoApe = findViewById(R.id.tvCorreoApe);
+        //etNameConf = findViewById(R.id.etNameConf);
         informacionUsuario();
 
         saveFirma.setOnClickListener(view -> {

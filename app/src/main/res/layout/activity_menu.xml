@@ -196,7 +196,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    app:cardBackgroundColor="@color/white"
+                    app:cardBackgroundColor="@color/ic_launcher_background"
                     app:cardCornerRadius="250dp">
 
                     <ImageView
@@ -204,8 +204,7 @@
                         android:layout_height="50dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/bot"
-                        app:srcCompat="@drawable/bot" />
-
+                        app:srcCompat="@mipmap/ic_launcher_foreground" />
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
