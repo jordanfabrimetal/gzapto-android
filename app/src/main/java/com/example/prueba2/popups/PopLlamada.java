@@ -1,13 +1,11 @@
 package com.example.prueba2.popups;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.Network;
 import android.os.Bundle;
 import android.os.Handler;
 import android.transition.Slide;
@@ -15,7 +13,6 @@ import android.transition.TransitionManager;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams;
 
 import android.util.Log;
@@ -27,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -46,8 +42,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.prueba2.R;
@@ -108,7 +102,7 @@ public class PopLlamada extends AppCompatActivity {
         imageButton = findViewById(R.id.imageButton);
         imageButton99 = findViewById(R.id.imageButton99);
         imageButtonGg = findViewById(R.id.imageButtonGg);
-        drawerLayout = findViewById(R.id.llPop7);
+        drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         imageButton4 = findViewById(R.id.imageButton4);
         imageButton3 = findViewById(R.id.imageButton3);
@@ -120,6 +114,7 @@ public class PopLlamada extends AppCompatActivity {
         clAnimada = findViewById(R.id.clAnimation);
         spinnerCodigo = findViewById(R.id.codigo);
         sharedPreferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+
         //Configuración de menú desplegable
         actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -128,7 +123,7 @@ public class PopLlamada extends AppCompatActivity {
         //Navegación del menú desplegable
         navigationView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
-            if (itemId == R.id.nav_dashboard) {
+            if(itemId == R.id.nav_dashboard){
                 Intent i = new Intent(getApplicationContext(), dashboard.class);
                 startActivity(i);
                 finish();
@@ -136,7 +131,7 @@ public class PopLlamada extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), menu.class);
                 startActivity(i);
                 finish();
-            } else if (itemId == R.id.nav_guia) {
+            } else if (itemId == R.id.nav_guia){
                 Intent i = new Intent(getApplicationContext(), guiaServicio.class);
                 startActivity(i);
                 finish();
@@ -146,28 +141,19 @@ public class PopLlamada extends AppCompatActivity {
             return true;
         });
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
+        if(actionBar != null){
             actionBar.setHomeAsUpIndicator(R.drawable.bot);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        Network network = connectivityManager.getActiveNetwork();
-
-        if (network != null) {
-            //Primeras funciones en iniciarse
-            obtenerServicios();
-            setupListeners();
-        } else {
-            mostrarOpcionesLlmadaSinInternet();
-        }
-
+        //Primeras funciones en iniciarse
+        obtenerServicios();
+        setupListeners();
     }
 
     //Metodo para obtener servicios(tipos de llamada)
     private void obtenerServicios() {
-        String url = "http://172.16.32.50/gzapto/ajax/ascensor.php?op=selecttipollamadaandroid";
+        String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/ascensor.php?op=selecttipollamadaandroid";
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -273,7 +259,7 @@ public class PopLlamada extends AppCompatActivity {
 
     //Metodo para obtener los Codigos de servicios.
     private void obtenerCodigos(int callTypeID) {
-        String url = "http://172.16.32.50/gzapto/ajax/ascensor.php?op=selectascfiltroandroid";
+        String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/ascensor.php?op=selectascfiltroandroid";
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -325,7 +311,6 @@ public class PopLlamada extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("codigoSel", selectedValue);
                     editor.apply();
-                    Toast.makeText(getApplicationContext(), "CCODIGO SELECCIONADO: "+selectedValue, Toast.LENGTH_SHORT).show();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -374,89 +359,47 @@ public class PopLlamada extends AppCompatActivity {
 
     }
 
-    public void decideEquipo(View v){
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        Network network = connectivityManager.getActiveNetwork();
-        if (network != null) {
-            buscarEquipo();
-        }else{
-            buscarSinInternet();
-        }
-    }
-
     //Metodo para busar servicio de normalización
-    public void buscarEquipo() {
-            imageButtonGg.setVisibility(View.GONE);
-            imageButton99.setVisibility(View.GONE);
-            Spinner spinnerTipollamado = findViewById(R.id.tipollamada);
-            p77.setVisibility(View.VISIBLE);
-            spinnerCodigo.setVisibility(View.GONE);
-            String selectedOptionName = spinnerTipollamado.getSelectedItem().toString();
-            int selectedCallTypeID = obtenLlamadaPorNombre(selectedOptionName);
-            Log.d("CallTypeID", String.valueOf(selectedCallTypeID));
-            String url;
-            if (selectedCallTypeID == 5) {
-                url = "http://172.16.32.50/gzapto/ajax/ascensor.php?op=llamadaservicionormalizacion";
-                Toast.makeText(getApplicationContext(), "Llamado de NORMALIZACION", Toast.LENGTH_SHORT).show();
-            } else {
-                url = "http://172.16.32.50/gzapto/ajax/ascensor.php?op=llamadaserviciovisita";
-                Toast.makeText(getApplicationContext(), "Llamado de VISITA", Toast.LENGTH_SHORT).show();
+    public void buscarEquipo(View view) {
+
+        imageButtonGg.setVisibility(View.GONE);
+        imageButton99.setVisibility(View.GONE);
+        Spinner spinnerTipollamado = findViewById(R.id.tipollamada);
+        p77.setVisibility(View.VISIBLE);
+        spinnerCodigo.setVisibility(View.GONE);
+        String selectedOptionName = spinnerTipollamado.getSelectedItem().toString();
+        int selectedCallTypeID = obtenLlamadaPorNombre(selectedOptionName);
+        Log.d("CallTypeID", String.valueOf(selectedCallTypeID));
+
+        String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/ascensor.php?op=llamadaservicionormalizacion";
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    Log.d("onResponse", response);
+                    Slide slide = new Slide();
+                    slide.setSlideEdge(Gravity.END);
+                    slide.setDuration(500);
+                    TransitionManager.beginDelayedTransition(clCodigoo, slide);
+                    clCodigoo.setVisibility(View.GONE);
+
+                    new Handler().postDelayed(() -> clBuscar.setVisibility(View.VISIBLE), 800);
+
+                    procesarRespuestaEquipo(response);
+                },
+                error -> Toast.makeText(getApplicationContext(), "Error en la solicitud", Toast.LENGTH_SHORT).show()
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                //Datos que se envian como POST al servidor.
+                String codigoSel = sharedPreferences.getString("codigoSel", "");
+                params.put("servicecall", codigoSel);
+                return params;
             }
-
-            RequestQueue queue = Volley.newRequestQueue(this);
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                    response -> {
-                        Log.d("onResponse", response);
-                        Slide slide = new Slide();
-                        slide.setSlideEdge(Gravity.END);
-                        slide.setDuration(500);
-                        TransitionManager.beginDelayedTransition(clCodigoo, slide);
-                        clCodigoo.setVisibility(View.GONE);
-
-                        new Handler().postDelayed(() -> clBuscar.setVisibility(View.VISIBLE), 800);
-
-                        procesarRespuestaEquipo(response);
-                    },
-                    error -> Toast.makeText(getApplicationContext(), "Error en la solicitud", Toast.LENGTH_SHORT).show()
-            ) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<>();
-                    //Datos que se envian como POST al servidor.
-                    String codigoSel = sharedPreferences.getString("codigoSel", "");
-                    params.put("servicecall", codigoSel);
-                    return params;
-                }
-            };
-            queue.add(stringRequest);
-
-
+        };
+        queue.add(stringRequest);
     }
-
-    public void buscarSinInternet(){
-
-        FrameLayout frameLayout = findViewById(R.id.frameLayout);
-        frameLayout.setVisibility(View.GONE);
-        TextView tvCodeNet = findViewById(R.id.tvCodeNet);
-        TextView tvSinInfo = findViewById(R.id.tvSinInfo);
-        tvCodeNet.setVisibility(View.VISIBLE);
-        tvSinInfo.setVisibility(View.VISIBLE);
-
-        Slide slide = new Slide();
-        slide.setSlideEdge(Gravity.END);
-        slide.setDuration(500);
-        TransitionManager.beginDelayedTransition(clCodigoo, slide);
-        clCodigoo.setVisibility(View.GONE);
-
-        new Handler().postDelayed(() -> clBuscar.setVisibility(View.VISIBLE), 800);
-        String codeFm = sharedPreferences.getString("codigoSel", "");
-
-        tvCodeNet.setText("SERVICIO SELECCIONADO: "+codeFm);
-    }
-
-
 
     //Metodo para traer los datos del equipo o servicio y manipularlos
     private void procesarRespuestaEquipo(String response) {
@@ -476,7 +419,6 @@ public class PopLlamada extends AppCompatActivity {
             String status = jsonObject.getString("status");
             String servicecallID = jsonObject.getString("ServiceCallID");
             String fm = jsonObject.getString("ItemCode");
-            int equipmentcardnum = jsonObject.getInt("equipmentcardnum");
             String estado = jsonObject.getString("status");
             String codclisap = jsonObject.getString("nomenclatura");
             //Asignación automaticaica del gps, se debe mejorar
@@ -504,11 +446,7 @@ public class PopLlamada extends AppCompatActivity {
             editor.putString("estado", estado);
             editor.putString("gps", gps);
             editor.putString("codclisap", codclisap);
-            editor.putInt("equipmentcardnum", equipmentcardnum);
             editor.putString("nomen", nomen);
-
-            //Variables para finalizar el servicio
-            editor.putString("servicecallIDfi", servicecallID);
             editor.apply();
 
             etCodCli.setText(nomen);
@@ -527,7 +465,6 @@ public class PopLlamada extends AppCompatActivity {
             final Handler handler = new Handler();
             final Runnable runnable = new Runnable() {
                 int currentItem = 0;
-
                 @Override
                 public void run() {
                     if (currentItem >= adapter.getItemCount()) {
@@ -584,7 +521,19 @@ public class PopLlamada extends AppCompatActivity {
         }
     }
 
+    //Metodo para cambiar margenes de los botones según aparecen contenidos en pantalla.
+    public void cambiarMargenes() {
+        int topMargin = 350;
 
+        LayoutParams params1 = (LayoutParams) imageButton4.getLayoutParams();
+        LayoutParams params2 = (LayoutParams) imageButton5.getLayoutParams();
+
+        params1.setMargins(0, topMargin, 270, 0);
+        params2.setMargins(270, topMargin, 0, 0);
+
+        imageButton4.setLayoutParams(params1);
+        imageButton5.setLayoutParams(params2);
+    }
 
     //Primer botón para continuar
     @SuppressLint("SetTextI18n")
@@ -592,12 +541,14 @@ public class PopLlamada extends AppCompatActivity {
         tvCliOb.setText("Observaciones de inicio de servicio");
         etCodCli.setVisibility(View.GONE);
         etObservacionIni.setVisibility(View.VISIBLE);
+        cambiarMargenes();
         imageButton3.setVisibility(View.GONE);
         imageButton5.setVisibility(View.VISIBLE);
 
     }
 
     //Segundo y ultimo botón para continuar e iniciar el servicio
+    @SuppressLint("SetTextI18n")
     public void iniciarServicio2(View v) {
 
         String subject = etObservacionIni.getText().toString();
@@ -614,246 +565,99 @@ public class PopLlamada extends AppCompatActivity {
             int colorErrorHint = Color.RED;
             etObservacionIni.setHintTextColor(colorErrorHint);
         } else {
-            AlertDialog dialogo = new AlertDialog.Builder(PopLlamada.this).setPositiveButton("Si, confirmar", new DialogInterface.OnClickListener() {
+            String nomen = etCodCli.getText().toString();
+            String modnomenclatura = "";
+            AlertDialog dialogo = new AlertDialog.Builder(PopLlamada.this)
+                    .setPositiveButton("Si, confirmar", (dialog, which) -> {
+                        Slide slide = new Slide();
+                        slide.setSlideEdge(Gravity.END);
+                        slide.setDuration(500);
+                        TransitionManager.beginDelayedTransition(clBuscar, slide);
+                        clBuscar.setVisibility(View.GONE);
 
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                            ConnectivityManager connectivityManager =
-                                    (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                            Network network = connectivityManager.getActiveNetwork();
-
-                            if (network != null) {
-
-                                String nomen = etCodCli.getText().toString();
-                                String modnomenclatura = "";
-
-                                String servicecallID = sharedPreferences.getString("servicecallID", "");
-                                Log.d("ServicallID del iniciar servicio", servicecallID);
-                                String customerCode = sharedPreferences.getString("customerCode", "");
-                                String itemcode = sharedPreferences.getString("itemcode", "");
-                                String fm = sharedPreferences.getString("fm", "");
-                                String estado = sharedPreferences.getString("estado", "");
-                                String gps = sharedPreferences.getString("gps", "");
-                                String codclisap = sharedPreferences.getString("codclisap", "");
-                                int idSAP = sharedPreferences.getInt("idSAP", 0);
-                                int equipmentcardnum = sharedPreferences.getInt("equipmentcardnum", 0);
-                                if (codclisap != nomen) {
-                                    Toast.makeText(getApplicationContext(), "campos de cliente no coinciden", Toast.LENGTH_SHORT).show();
-                                    modnomenclatura = "&nomen=" + nomen + "&codascen=" + equipmentcardnum;
-                                }
-
-                                Log.d("Iniciar sesion prueba 01", servicecallID + ' ' + customerCode + ' ' + itemcode + ' ' + fm + ' ' + estado + ' ' + gps + ' ' + subject + ' ' + nomen);
-
-                                String url = "http://172.16.32.50/gzapto/ajax/servicio.php" +
-                                        "?op=iniciarsapnormalizacion" +
-                                        "&servicecallID=" + servicecallID +
-                                        "&customerCode=" + customerCode +
-                                        "&itemcode=" + itemcode +
-                                        "&fm=" + fm +
-                                        "&estado=" + estado +
-                                        modnomenclatura +
-                                        "&gps=" + gps +
-                                        "&subject=" + subject +
-                                        "&idSAP=" + idSAP;
-
-                                Log.d("URL DEL INICIO SERVCIO: ", url);
-
-                                RequestQueue queue = Volley.newRequestQueue(PopLlamada.this);
-                                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                                        new Response.Listener<String>() {
-                                            @Override
-                                            public void onResponse(String response) {
-                                                Log.d("RESPONSE", response);
-                                                Toast.makeText(getApplicationContext(), "Se inicio el servicio correctamente", Toast.LENGTH_SHORT).show();
-                                                moveFoward(clBuscar, clAnimada);
-                                                new Handler().postDelayed(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        Intent intent = new Intent(getApplicationContext(), menu.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    }
-                                                }, 5000);
-                                            }
-                                        },
-                                        new Response.ErrorListener() {
-                                            @Override
-                                            public void onErrorResponse(VolleyError error) {
-                                                Toast.makeText(getApplicationContext(), "Error en la solicitud", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                );
-                                queue.add(stringRequest);
-
-                            } else {
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("netiniobs",subject);
-                                editor.apply();
-                                Toast.makeText(getApplicationContext(), "Se inicio el servicio correctamente", Toast.LENGTH_SHORT).show();
-                                moveFoward(clBuscar, clAnimada);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Intent intent = new Intent(getApplicationContext(), menu.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                }, 5000);
-                                editor.putBoolean("bloqueado", true);
-                                editor.putInt("servicioxfinalizar", 1);
-                                editor.apply();
-                            }
-
-                        }
+                        new Handler().postDelayed(() -> {
+                            clAnimada.setVisibility(View.VISIBLE);
+                            new Handler().postDelayed(() -> clAnimada.setVisibility(View.GONE), 3000);
+                        }, 500);
+                        new Handler().postDelayed(() -> {
+                            Intent i = new Intent(getApplicationContext(), menu.class);
+                            startActivity(i);
+                            finish();
+                        }, 800);
                     })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Toast.makeText(PopLlamada.this, "Cancelado", Toast.LENGTH_SHORT).show();
-                            dialogInterface.dismiss();
-                        }
-                    })
-                    .setTitle("¿Estas seguro de iniciar el servicio")
+                    .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
+                    .setTitle("¿Confirma que desea iniciar el servicio?")
                     .create();
             dialogo.show();
         }
-    }
-
-
-    public void mostrarOpcionesLlmadaSinInternet() {
-        progressBar2.setVisibility(View.GONE);
-        imageButton.setVisibility(View.VISIBLE);
-        tipollamada.setVisibility(View.VISIBLE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        //Mapa para los servicios posibles
-        Map<String, String> opcionesMapa = new HashMap<>();
-        opcionesMapa.put("05", "NORMALIZACION");
-        opcionesMapa.put("17", "VISITA");
-
-        //Convertir el mapa en un ArrayList
-        List<String> opciones = new ArrayList<>(opcionesMapa.values());
-
-        //Crear ArrayAdapter y configurar el Spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_items, opciones);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        Spinner spinner = findViewById(R.id.tipollamada);
-        spinner.setAdapter(adapter);
-
-       spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-           @Override
-           public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-            String selectedOption = (String) parentView.getItemAtPosition(position);
-
-            if(selectedOption.equals("NORMALIZACION")){
-                Toast.makeText(getApplicationContext(), "NORMA", Toast.LENGTH_SHORT).show();
-                llenarSpinnerCodigoN();
-                editor.putInt("valuellamadasel", 5);
-
-            }else{
-                Toast.makeText(getApplicationContext(), "Visita", Toast.LENGTH_SHORT).show();
-                editor.putInt("valuellamadasel", 17);
-            }
-            editor.apply();
-           }
+        /*
 
 
 
-           @Override
-           public void onNothingSelected(AdapterView<?> adapterView) {
 
-           }
-       });
-
-        //spinnerCodigo spCodigo = findViewById(R.id.codigo);
-
-
-    }
-
-
-    //Metodo para llenar Spinner o combobox del codigo de servicio.
-    private void llenarSpinnerCodigoN() {
-        String opcionesJsonString = sharedPreferences.getString("all_services_normalizacion","");
-        Toast.makeText(getApplicationContext(),"Resultado de all_services: "+opcionesJsonString, Toast.LENGTH_SHORT).show();
-        Log.d("all_services:", opcionesJsonString);
-        List<String> opciones = new ArrayList<>();
-        List<String> valores = new ArrayList<>();
-        try {
-            JSONArray opcionesJsonArray = new JSONArray(opcionesJsonString);
-
-            for(int i = 0; i<opcionesJsonArray.length(); i++){
-                String jsonString = opcionesJsonArray.getString(i);
-                JSONObject jsonObject = new JSONObject(jsonString);
-                String text = jsonObject.getString("text");
-                String value = jsonObject.getString("value");
-                opciones.add(text);
-                valores.add(value);
-                imageButtonGg.setVisibility(View.VISIBLE);
-                imageButton99.setVisibility(View.VISIBLE);
-            }
-
-            Spinner spinnerCodigo = findViewById(R.id.codigo);
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    R.layout.spinner_items, opciones);
-            adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-
-            spinnerCodigo.setAdapter(adapter);
-
-            spinnerCodigo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        String selectedValue = valores.get(i);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("codigoSel", selectedValue);
-                        editor.apply();
-                        Toast.makeText(getApplicationContext(), "CCODIGO SELECCIONADO: "+selectedValue, Toast.LENGTH_SHORT).show();
-
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
+        String servicecallID = sharedPreferences.getString("servicecallID", "");
+        Log.d("ServicallID del iniciar servicio", servicecallID);
+        String customerCode = sharedPreferences.getString("customerCode", "");
+        String itemcode = sharedPreferences.getString("itemcode", "");
+        String fm = sharedPreferences.getString("fm", "");
+        String estado = sharedPreferences.getString("estado", "");
+        String gps = sharedPreferences.getString("gps", "");
+        String codclisap = sharedPreferences.getString("codclisap", "");
+        int equipmentcardnum = sharedPreferences.getInt("equipmentcardnum", 0);
+        if (codclisap != nomen) {
+            Toast.makeText(this, "SALUDA A MI AMIGITO!", Toast.LENGTH_SHORT).show();
+            modnomenclatura = "&nomen=" + nomen + "&codascen=" + equipmentcardnum;
         }
+
+        Log.d("Iniciar sesion prueba 01", servicecallID + ' ' + customerCode + ' ' + itemcode + ' ' + fm + ' ' + estado + ' ' + gps + ' ' + subject + ' ' + nomen);
+
+        String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/servicio.php" +
+                "?op=iniciarsapnormalizacion" +
+                "&servicecallID=" + servicecallID +
+                "&customerCode=" + customerCode +
+                "&itemcode=" + itemcode +
+                "&fm=" + fm +
+                "&estado=" + estado +
+                modnomenclatura +
+                "&gps=" + gps +
+                "&subject=" + subject;
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("RESPONSE", response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Error en la solicitud", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        queue.add(stringRequest);
+
+         */
+
     }
-
-
 
     //Metodo asociada a la "equis" de los Popups
-    public void salirPopUp(View v) {
+    public void salirPopUp(View v){
         Intent i = new Intent(getApplicationContext(), guiaServicio.class);
         startActivity(i);
         finish();
     }
 
-
-    public void moveFoward(ConstraintLayout cl1, ConstraintLayout cl2) {
-        Slide slide = new Slide();
-        slide.setSlideEdge(Gravity.END);
-        slide.setDuration(500);
-        TransitionManager.beginDelayedTransition(cl1, slide);
-        cl1.setVisibility(View.GONE);
-
-        new Handler().postDelayed(() -> {
-            cl2.setVisibility(View.VISIBLE);
-            new Handler().postDelayed(() -> {
-
-            }, 3000);
-        }, 500);
-    }
-
     //Metodo del menú desplegable, selección de opciones.
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if(item.getItemId() == android.R.id.home){
+            if(drawerLayout.isDrawerOpen(GravityCompat.START)){
                 drawerLayout.closeDrawer(GravityCompat.START);
-            } else {
+            }else {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
             return true;
@@ -869,13 +673,13 @@ public class PopLlamada extends AppCompatActivity {
     }
 
     //Metodo del menú desplegable, mostrar el menu y sus elementos.
-    public void mostrarMenu(View v) {
+    public void mostrarMenu(View v){
 
-        if (muestra) {
+        if(muestra){
             appBarLayout.setVisibility(View.VISIBLE);
             muestra = false;
             backgroundOverlay.setVisibility(View.VISIBLE);
-        } else {
+        }else{
             appBarLayout.setVisibility(View.GONE);
             muestra = true;
             backgroundOverlay.setVisibility(View.GONE);

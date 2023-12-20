@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
@@ -18,15 +19,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.Network;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.transition.Slide;
+import android.transition.TransitionManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -34,6 +40,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -86,7 +93,7 @@ public class guiaServicio extends AppCompatActivity {
         ivHamburgesa = findViewById(R.id.ivHamburgesa3);
         appBarLayout = findViewById(R.id.appBarLayout);
 
-        drawerLayout = findViewById(R.id.llPop7);
+        drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -98,7 +105,7 @@ public class guiaServicio extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
-            if (itemId == R.id.nav_dashboard) {
+            if(itemId == R.id.nav_dashboard){
                 Intent i = new Intent(getApplicationContext(), dashboard.class);
                 startActivity(i);
                 finish();
@@ -106,7 +113,7 @@ public class guiaServicio extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), menu.class);
                 startActivity(i);
                 finish();
-            } else if (itemId == R.id.nav_guia) {
+            } else if (itemId == R.id.nav_guia){
                 Intent i = new Intent(getApplicationContext(), guiaServicio.class);
                 startActivity(i);
                 finish();
@@ -117,7 +124,7 @@ public class guiaServicio extends AppCompatActivity {
         });
 
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
+        if(actionBar != null){
             actionBar.setHomeAsUpIndicator(R.drawable.bot);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -144,35 +151,16 @@ public class guiaServicio extends AppCompatActivity {
         Log.d("idsap de guia android: ", String.valueOf(idSAP));
         Log.d("iduser de guia android: ", String.valueOf(iduser));
         Log.d("idrole de guia android: ", String.valueOf(idrole));
-        Boolean bloqueado = sharedPreferences.getBoolean("bloqueado", false);
-        Boolean finalizarbloqueado = sharedPreferences.getBoolean("finalizarbloqueado", false);
 
-        if(bloqueado == true || finalizarbloqueado == true){
-            Intent i = new Intent(getApplicationContext(), menu.class);
-            startActivity(i);
-            finish();
-        }else{
-            //obtenerServicios();
-            //setupListeners();
-            manageBlinkEffect();
-
-            ConnectivityManager connectivityManager =
-                    (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            Network network = connectivityManager.getActiveNetwork();
-
-            if (network != null) {
-
-                levantarGuias();
-            } else {
-                levantarGuiasSinConexion();
-            }
-        }
-
+        //obtenerServicios();
+        //setupListeners();
+        manageBlinkEffect();
+        levantarGuias();
 
     }
 
     private void obtenerServicios() {
-        String url = "http://172.16.32.50/gzapto/ajax/ascensor.php?op=selecttipollamadaandroid";
+        String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/ascensor.php?op=selecttipollamadaandroid";
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -186,7 +174,7 @@ public class guiaServicio extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Error en la solicitud2", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Error en la solicitud", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -292,7 +280,7 @@ public class guiaServicio extends AppCompatActivity {
     }
 
     private void obtenerCodigos(int callTypeID) {
-        String url = "http://172.16.32.50/gzapto/ajax/ascensor.php?op=selectascfiltroandroid";
+        String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/ascensor.php?op=selectascfiltroandroid";
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -355,7 +343,7 @@ public class guiaServicio extends AppCompatActivity {
         int selectedCallTypeID = getCallTypeIDByName(selectedOptionName);
         Log.d("CallTypeID", String.valueOf(selectedCallTypeID));
 
-        String url = "http://172.16.32.50/gzapto/ajax/ascensor.php?op=llamadaservicionormalizacion";
+        String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/ascensor.php?op=llamadaservicionormalizacion";
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -511,7 +499,7 @@ public class guiaServicio extends AppCompatActivity {
 
         Log.d("Iniciar sesion prueba 01", servicecallID + ' ' + customerCode + ' ' + itemcode + ' ' + fm + ' ' + estado + ' ' + gps + ' ' + subject + ' ' + nomen);
 
-        String url = "http://172.16.32.50/gzapto/ajax/servicio.php" +
+        String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/servicio.php" +
                 "?op=iniciarsapnormalizacion" +
                 "&servicecallID=" + servicecallID +
                 "&customerCode=" + customerCode +
@@ -543,7 +531,7 @@ public class guiaServicio extends AppCompatActivity {
     }
 
     public void levantarGuias() {
-        String url = "http://172.16.32.50/gzapto/ajax/servicio.php?op=verificarsapandroid";
+        String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/servicio.php?op=verificarsapandroid";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -559,7 +547,7 @@ public class guiaServicio extends AppCompatActivity {
                             if (accede == 1) {
                                 Toast.makeText(getApplicationContext(), "Es 1 carajo", Toast.LENGTH_SHORT).show();
                                 pb5.setVisibility(View.GONE);
-                                // clConfirma.setVisibility(View.VISIBLE);
+                               // clConfirma.setVisibility(View.VISIBLE);
                                 tvServicio = findViewById(R.id.tvServicio);
                                 tvCodigo = findViewById(R.id.tvCodigo);
                                 tvTipo = findViewById(R.id.tvTipo);
@@ -606,7 +594,7 @@ public class guiaServicio extends AppCompatActivity {
                                 editor.putString("cargoTecnico", cargoTecnico);
                                 editor.putString("nombresTecnico", nombresTecnico);
                                 editor.putString("apellidoTecnico", apellidoTecnico);
-                                editor.putString("marcaEquipo", marcaEquipo);
+                                editor.putString("marcaEquipo",marcaEquipo);
                                 editor.putString("rutTecnico", rutTecnico);
                                 editor.putString("nombreEdificio", nombreEdificio);
                                 editor.putString("direccionEdificio", direccionEdificio);
@@ -644,6 +632,33 @@ public class guiaServicio extends AppCompatActivity {
                                                 Intent i = new Intent(getApplicationContext(), inicioServicio.class);
                                                 startActivity(i);
                                                 finish();
+                                                /*
+                                                Slide slide = new Slide();
+                                                slide.setSlideEdge(Gravity.END);
+                                                slide.setDuration(500);
+                                                TransitionManager.beginDelayedTransition(clBuscar, slide);
+                                                clBuscar.setVisibility(View.GONE);
+
+                                                new Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        clAnimada.setVisibility(View.VISIBLE);
+                                                        new Handler().postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                clAnimada.setVisibility(View.GONE);
+                                                            }
+                                                        }, 3000);
+                                                    }
+                                                }, 500);
+                                                new Handler().postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Intent i = new Intent(getApplicationContext(), menu.class);
+                                                        startActivity(i);
+                                                        finish();
+                                                    }
+                                                }, 800);*/
                                             }
                                         })
                                         .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -653,7 +668,7 @@ public class guiaServicio extends AppCompatActivity {
                                             }
                                         })
                                         .setTitle("Tienes un servicio iniciado")
-                                        .setMessage("¿Deseas seguir con la finalización de este servicio?")
+                                        .setMessage("¿Deseas proseguir con este servicio?")
                                         .create();
                                 dialogo.show();
 
@@ -685,10 +700,8 @@ public class guiaServicio extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 int idSAP = sharedPreferences.getInt("idSAP", 0);
-                int iduser = sharedPreferences.getInt("iduser", 0);
                 Log.d("ID SAP SHARED2", String.valueOf(idSAP));
                 params.put("idSAP_form", String.valueOf(idSAP));
-                params.put("iduser", String.valueOf(iduser));
                 return params;
             }
         };
@@ -699,106 +712,6 @@ public class guiaServicio extends AppCompatActivity {
         ));
         queue.add(stringRequest);
     }
-
-    public void levantarGuiasSinConexion() {
-        Toast.makeText(getApplicationContext(), "Estas en levantar sin conexion", Toast.LENGTH_SHORT).show();
-        sharedPreferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
-        int accede = sharedPreferences.getInt("accede", 0);
-        if (accede == 1) {
-            Toast.makeText(getApplicationContext(), "Es 1 carajo", Toast.LENGTH_SHORT).show();
-            pb5.setVisibility(View.GONE);
-            // clConfirma.setVisibility(View.VISIBLE);
-            tvServicio = findViewById(R.id.tvServicio);
-            tvCodigo = findViewById(R.id.tvCodigo);
-            tvTipo = findViewById(R.id.tvTipo);
-            tvMarca = findViewById(R.id.tvMarca);
-            tvModelo = findViewById(R.id.tvModelo);
-            tvCargo = findViewById(R.id.tvCargo);
-            tvNomTec = findViewById(R.id.tvNomTec);
-            tvApeTec = findViewById(R.id.tvApeTec);
-            tvRutTec = findViewById(R.id.tvRutTec);
-            tvNomEdi = findViewById(R.id.tvNomEdi);
-            tvDireccion = findViewById(R.id.tvDireccion);
-            tvServiS = findViewById(R.id.tvServiS);
-            tvTipoServ = findViewById(R.id.tvTipoServ);
-            tvFechIni = findViewById(R.id.tvFechIni);
-            tvHoraIni = findViewById(R.id.tvHoraIni);
-            tvObservacion = findViewById(R.id.tvObservacion);
-
-
-            String servicioini = sharedPreferences.getString("servicioini", "");
-            String codigoEquipo = sharedPreferences.getString("codigoEquipo", "");
-            String tipoEquipo = sharedPreferences.getString("tipoEquipo", "");
-            String modeloEquipo = sharedPreferences.getString("modeloEquipo", "");
-            String cargoTecnico = sharedPreferences.getString("cargoTecnico", "");
-            String nombresTecnico = sharedPreferences.getString("nombresTecnico", "");
-            String apellidoTecnico = sharedPreferences.getString("apellidosTecnico", "");
-            String marcaEquipo = sharedPreferences.getString("marcaEquipo", "");
-            String rutTecnico = sharedPreferences.getString("rutTecnico", "");
-            String nombreEdificio = sharedPreferences.getString("nombreEdificio", "");
-            String direccionEdificio = sharedPreferences.getString("direccionEdificio", "");
-            String tipoServicio = sharedPreferences.getString("tipoServicio", "");
-            String servicioServicio = sharedPreferences.getString("servicioServicio", "");
-            String fechainicioServicio = sharedPreferences.getString("fechainicioServicio", "");
-            String horainicioServicio = sharedPreferences.getString("horarioinicioServicio", "");
-            String observacionServicio = sharedPreferences.getString("observacionServicio", "");
-            String servillo = sharedPreferences.getString("servillo", "");
-            String actCodigo = sharedPreferences.getString("actCodigo", "");
-            String swBtnFin = sharedPreferences.getString("swBtnFin", "");
-
-
-            tvServicio.setText("Servicio: # " + servicioini);
-            tvCodigo.setText(codigoEquipo);
-            tvTipo.setText(tipoEquipo);
-            tvMarca.setText(marcaEquipo);
-            tvModelo.setText(modeloEquipo);
-            tvCargo.setText(cargoTecnico);
-            tvNomTec.setText(nombresTecnico);
-            tvApeTec.setText(apellidoTecnico);
-            tvRutTec.setText(rutTecnico);
-            tvNomEdi.setText(nombreEdificio);
-            tvDireccion.setText(direccionEdificio);
-            tvServiS.setText(servicioServicio);
-            tvTipoServ.setText(tipoServicio);
-            tvFechIni.setText(fechainicioServicio);
-            tvHoraIni.setText(horainicioServicio);
-            tvObservacion.setText(observacionServicio);
-
-            AlertDialog dialogo = new AlertDialog.Builder(guiaServicio.this)
-                    .setPositiveButton("Si, proseguir", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent i = new Intent(getApplicationContext(), inicioServicio.class);
-                            startActivity(i);
-                            finish();
-
-                        }
-                    })
-                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .setTitle("Tienes un servicio iniciado")
-                    .setMessage("¿Deseas proseguir con este servicio?")
-                    .create();
-            dialogo.show();
-
-
-        } else if (accede == 2) {
-            pb5.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "Es 2 coñooo", Toast.LENGTH_SHORT).show();
-            //clCbo.setVisibility(View.VISIBLE);
-            //clSeleccion.setVisibility(View.VISIBLE);
-            //estructurarInputs();
-            //obtenerServicios();
-            //setupListeners();
-            imgInicio.setVisibility(View.VISIBLE);
-            tvInicio.setVisibility(View.VISIBLE);
-        }
-    }
-
 
     public void terminarServicio(View v) {
         //servicioini(idservicio), codigoEquipo(idacensor), servillo(tipoencuesta), actCodigo(idactividad), swBtnFin
@@ -812,9 +725,9 @@ public class guiaServicio extends AppCompatActivity {
         clConfirma.setVisibility(View.GONE);
         clFinaliza.setVisibility(View.VISIBLE);
 
-        String url = "http://172.16.32.50/gzapto/ajax/servicio.php?op=guiaPorCerrar";
-        String url2 = "http://172.16.32.50/gzapto/ajax/servicio.php?op=selecttestadossapandroid";
-        String url3 = "http://172.16.32.50/gzapto/ajax/servicio.php?op=infoguiasap";
+        String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/servicio.php?op=guiaPorCerrar";
+        String url2 = "http://172.16.32.50/fabrimetal/gzapto/ajax/servicio.php?op=selecttestadossapandroid";
+        String url3 = "http://172.16.32.50/fabrimetal/gzapto/ajax/servicio.php?op=infoguiasap";
 
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -954,7 +867,7 @@ public class guiaServicio extends AppCompatActivity {
     }
 
     public void selectTecnico(Spinner spTecnico) {
-        String url = "http://172.16.32.50/gzapto/ajax/servicio.php?op=selectTecnicoandroid";
+        String url = "http://172.16.32.50/fabrimetal/gzapto/ajax/servicio.php?op=selectTecnicoandroid";
         StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -1106,7 +1019,7 @@ public class guiaServicio extends AppCompatActivity {
         startActivity(view);
     }
 
-    public void manageBlinkEffect() {
+    public void manageBlinkEffect(){
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(tvInicio, "scaleX", 1.0f, 1.2f, 1.0f);
         scaleX.setDuration(800);
         scaleX.setRepeatMode(ValueAnimator.REVERSE);
@@ -1125,10 +1038,10 @@ public class guiaServicio extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if(item.getItemId() == android.R.id.home){
+            if(drawerLayout.isDrawerOpen(GravityCompat.START)){
                 drawerLayout.closeDrawer(GravityCompat.START);
-            } else {
+            }else {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
             return true;
@@ -1142,13 +1055,13 @@ public class guiaServicio extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
-    public void mostrarMenu(View v) {
+    public void mostrarMenu(View v){
 
-        if (muestra == true) {
+        if(muestra==true){
             appBarLayout.setVisibility(View.VISIBLE);
             muestra = false;
             backgroundOverlay.setVisibility(View.VISIBLE);
-        } else if (muestra == false) {
+        }else if(muestra == false){
             appBarLayout.setVisibility(View.GONE);
             muestra = true;
             backgroundOverlay.setVisibility(View.GONE);

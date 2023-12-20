@@ -6,6 +6,7 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
+<<<<<<< HEAD
             <type value="SERIAL_NUMBER" />
             <value value="9tsksobyizfilzde" />
           </Key>
@@ -13,5 +14,14 @@
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
     <timeTargetWasSelectedWithDropDown value="2023-12-20T17:28:25.943016600Z" />
+=======
+            <type value="VIRTUAL_DEVICE_PATH" />
+            <value value="C:\Users\Ignacio Cabello\.android\avd\Resizable_Experimental_API_34.avd" />
+          </Key>
+        </deviceKey>
+      </Target>
+    </targetSelectedWithDropDown>
+    <timeTargetWasSelectedWithDropDown value="2023-09-13T15:39:21.021506500Z" />
+>>>>>>> parent of 34c7c67 (Cambios)
   </component>
 </project>
