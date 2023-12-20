@@ -37,22 +37,11 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/top_background" />
 
-                <ProgressBar
-                    android:id="@+id/pbGrafico"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
                 <com.github.mikephil.charting.charts.HorizontalBarChart
                     android:id="@+id/chart"
                     android:layout_width="400sp"
                     android:layout_height="550sp"
                     android:padding="50dp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
@@ -353,7 +342,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#80000000"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/ivHamburgesa"
@@ -361,7 +350,6 @@
             android:layout_height="36dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:elevation="50dp"
             android:minHeight="48dp"
             android:onClick="mostrarMenu"
             app:srcCompat="@drawable/menu_icon" />

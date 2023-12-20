@@ -69,7 +69,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_margin="8dp"
-                    android:onClick="akak"
                     app:srcCompat="@drawable/chat" />
 
                 <TextView
@@ -288,7 +287,6 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/top_banner_background"
-                    android:onClick="abrirGuia"
                     android:orientation="vertical">
 
                     <ImageView
@@ -296,7 +294,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"
-                        android:onClick="abrirGuia"
                         app:srcCompat="@drawable/calendar" />
 
                     <TextView
@@ -304,7 +301,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:onClick="abrirGuia"
                         android:text="Guía de servicio"
                         android:textAlignment="center"
                         android:textColor="#199B33"
@@ -374,7 +370,6 @@
 
                 </LinearLayout>
             </LinearLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

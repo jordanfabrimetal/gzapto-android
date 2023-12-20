@@ -1,1401 +1,1223 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".guiaServicio">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clFinaliza"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".guiaServicio">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:id="@+id/imgInicio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="180dp"
-                    android:background="@color/white"
-                    android:onClick="irPop"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView13"
-                    app:srcCompat="@drawable/btn_arraw1" />
-
-                <ProgressBar
-                    android:id="@+id/pb5"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView13" />
-
-                <ImageView
-                    android:id="@+id/imageView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/top_background" />
-
-                <TextView
-                    android:id="@+id/textView36"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="MODULO DE GUÍAS SERVICIO"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/textView34"
-                    app:layout_constraintTop_toBottomOf="@+id/textView34" />
-
-                <TextView
-                    android:id="@+id/textView34"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32sp"
-                    android:layout_marginTop="60sp"
-                    android:text="APP Guías de servicio"
-                    android:textColor="#ffffff"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView12"
-                    android:layout_width="139dp"
-                    android:layout_height="141dp"
-                    android:layout_marginTop="-30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/fabrilogo" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clFinaliza"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#C6BDBD"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView79"
-                    app:layout_constraintTop_toBottomOf="@+id/textView79"
-                    tools:layout_editor_absoluteX="114dp">
-
-                    <TextView
-                        android:id="@+id/textView67"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Guia de servicio"
-                        android:textSize="35sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView68"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="INFORMACION DEL EQUIPO"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView67" />
-
-                    <TextView
-                        android:id="@+id/textView74"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="INFORMACION DEL EDIFICIO"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etModF" />
-
-                    <TextView
-                        android:id="@+id/textView69"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Codigo"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView68" />
-
-                    <EditText
-                        android:id="@+id/etCodF"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Codigo"
-                        android:inputType="text"
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView69" />
-
-                    <TextView
-                        android:id="@+id/textView71"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tipo de ascensor"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etCodF" />
-
-                    <EditText
-                        android:id="@+id/etTipAs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Ascensor"
-                        android:inputType="text"
-
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView71" />
-
-                    <TextView
-                        android:id="@+id/textView72"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Marca"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etTipAs" />
-
-                    <EditText
-                        android:id="@+id/etMarF"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Marca"
-                        android:inputType="text"
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView72" />
-
-                    <TextView
-                        android:id="@+id/textView73"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Modelo"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etMarF" />
-
-                    <EditText
-                        android:id="@+id/etModF"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Modelo"
-                        android:inputType="text"
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView73" />
-
-                    <TextView
-                        android:id="@+id/textView75"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nombre"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView74" />
-
-                    <EditText
-                        android:id="@+id/etNomEdF"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Nombre"
-                        android:inputType="text"
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView75" />
-
-                    <TextView
-                        android:id="@+id/textView76"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Direccion"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etNomEdF" />
-
-                    <EditText
-                        android:id="@+id/etDirF"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Direccion"
-                        android:inputType="text"
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView76" />
-
-                    <TextView
-                        android:id="@+id/textView77"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="INFORMACION DE INICIO DEL SERVICIO"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etDirF" />
-
-                    <TextView
-                        android:id="@+id/textView78"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fecha"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView77" />
-
-                    <EditText
-                        android:id="@+id/etFecF"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Fecha"
-                        android:inputType="text"
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView78" />
-
-                    <TextView
-                        android:id="@+id/textView79"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hora"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etFecF" />
-
-                    <EditText
-                        android:id="@+id/etHorF"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Hora"
-                        android:inputType="text"
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView79" />
-
-                    <TextView
-                        android:id="@+id/textView80"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tipo de servicio"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etHorF" />
-
-                    <EditText
-                        android:id="@+id/etTipSerF"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Tipo servicio"
-                        android:inputType="text"
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView80" />
-
-                    <TextView
-                        android:id="@+id/textView81"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Estado del equipo al inicio del servicio"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etTipSerF" />
-
-                    <EditText
-                        android:id="@+id/etEstadoF"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Estado"
-                        android:inputType="text"
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView81" />
-
-                    <TextView
-                        android:id="@+id/textView82"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Observaciones de inicio de servicio"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etEstadoF" />
-
-                    <EditText
-                        android:id="@+id/etObsF"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Obvservacion"
-                        android:inputType="text"
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView82" />
-
-                    <TextView
-                        android:id="@+id/textView83"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="12dp"
-                        android:text="INFORMACION DE FINALIZACION DEL SERVICIO"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etObsF" />
-
-                    <TextView
-                        android:id="@+id/textView85"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Estado del equipo despues del servicio"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView83" />
-
-                    <Spinner
-                        android:id="@+id/spEstadoF"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView85" />
-
-                    <TextView
-                        android:id="@+id/textView86"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Observaciones de finalizacion del servicio"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/spEstadoF" />
-
-                    <EditText
-                        android:id="@+id/etUltimaComen"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:gravity="top"
-
-                        android:hint="Ingrese observacón"
-                        android:inputType="text|textMultiLine"
-                        android:lines="6"
-                        android:minHeight="48sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView86" />
-
-                    <TextView
-                        android:id="@+id/textView88"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="¿Realizó el trabajo con ayudante?"
-                        android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etUltimaComen" />
-
-                    <Spinner
-                        android:id="@+id/spOpayu"
-                        android:layout_width="377dp"
-                        android:layout_height="wrap_content"
-                        android:visibility="visible"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView88" />
-
-                    <TextView
-                        android:id="@+id/tvCanyAyu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="Ingrese cantidad de ayudantes"
-                        android:textSize="17sp"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/spOpayu" />
-
-                    <Spinner
-                        android:id="@+id/spCantAyud"
-                        android:layout_width="377dp"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvCanyAyu" />
-
-                    <TextView
-                        android:id="@+id/tvAyu1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ingresa ayudante 1"
-                        android:textSize="17sp"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/spCantAyud" />
-
-                    <Spinner
-                        android:id="@+id/spAyu1"
-                        android:layout_width="377dp"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvAyu1" />
-
-                    <TextView
-                        android:id="@+id/tvAyu2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ingresa ayudante 2"
-                        android:textSize="17sp"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/spAyu1" />
-
-                    <Spinner
-                        android:id="@+id/spAyu2"
-                        android:layout_width="376dp"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvAyu2" />
-
-                    <Spinner
-                        android:id="@+id/spPresupueto"
-                        android:layout_width="377dp"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView94" />
-
-                    <TextView
-                        android:id="@+id/textView94"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Generar solicitud de presupuesto"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/spAyu2" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clConfirma"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="164dp"
-                    android:background="#2F35A3"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textView32"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="INFORMACION EQUIPO:"
-                        android:textColor="#101010"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-
-                    <TextView
-                        android:id="@+id/textView30"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Guia de servicio"
-                        android:textColor="#0B0000"
-                        android:textSize="30sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="100sp"
-                        android:layout_height="100sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView30" />
-
-                    <TextView
-                        android:id="@+id/tvServicio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Servicio: #"
-                        android:textColor="#A59090"
-                        android:textSize="40sp"
-                        app:layout_constraintStart_toEndOf="@+id/imageView5"
-                        app:layout_constraintTop_toBottomOf="@+id/textView30" />
-
-                    <TextView
-                        android:id="@+id/textView33"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Codigo:"
-                        android:textColor="#1C0606"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView32"
-                        tools:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvCodigo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#131111"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView33"
-                        app:layout_constraintTop_toBottomOf="@+id/textView32" />
-
-                    <TextView
-                        android:id="@+id/textView35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tipo:"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView33" />
-
-                    <TextView
-                        android:id="@+id/tvTipo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView35"
-                        app:layout_constraintTop_toBottomOf="@+id/tvCodigo" />
-
-                    <TextView
-                        android:id="@+id/textView37"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Marca:"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView35" />
-
-                    <TextView
-                        android:id="@+id/tvMarca"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView37"
-                        app:layout_constraintTop_toBottomOf="@+id/tvTipo" />
-
-                    <TextView
-                        android:id="@+id/textView39"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Modelo:"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView37" />
-
-                    <TextView
-                        android:id="@+id/tvModelo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView39"
-                        app:layout_constraintTop_toBottomOf="@+id/tvMarca" />
-
-                    <TextView
-                        android:id="@+id/textView41"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="28dp"
-                        android:text="INFORMACION TECNICO:"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView39" />
-
-                    <TextView
-                        android:id="@+id/textView42"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cargo: "
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView41" />
-
-                    <TextView
-                        android:id="@+id/tvCargo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView42"
-                        app:layout_constraintTop_toBottomOf="@+id/textView41" />
-
-                    <TextView
-                        android:id="@+id/textView44"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nombres: "
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView42" />
-
-                    <TextView
-                        android:id="@+id/tvNomTec"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView44"
-                        app:layout_constraintTop_toBottomOf="@+id/tvCargo" />
-
-                    <TextView
-                        android:id="@+id/textView46"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Apellido:"
-                        android:textColor="#0B0A0A"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView44" />
-
-                    <TextView
-                        android:id="@+id/tvApeTec"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="normal"
-                        app:layout_constraintStart_toEndOf="@+id/textView46"
-                        app:layout_constraintTop_toBottomOf="@+id/tvNomTec" />
-
-                    <TextView
-                        android:id="@+id/textView48"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="RUT:"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView46" />
-
-                    <TextView
-                        android:id="@+id/tvRutTec"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView48"
-                        app:layout_constraintTop_toBottomOf="@+id/tvApeTec" />
-
-                    <TextView
-                        android:id="@+id/textView50"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="INFORMACION EDIFICIO:"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView48" />
-
-                    <TextView
-                        android:id="@+id/textView51"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nombre:"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView50" />
-
-                    <TextView
-                        android:id="@+id/tvNomEdi"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#070707"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView51"
-                        app:layout_constraintTop_toBottomOf="@+id/textView50" />
-
-                    <TextView
-                        android:id="@+id/textView53"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Direccion:"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView51" />
-
-                    <TextView
-                        android:id="@+id/tvDireccion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#121111"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView53"
-                        app:layout_constraintTop_toBottomOf="@+id/tvNomEdi" />
-
-                    <TextView
-                        android:id="@+id/textView55"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20sp"
-                        android:text="INFORMACION SERVICIO:"
-                        android:textColor="#000000"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView53" />
-
-                    <TextView
-                        android:id="@+id/textView57"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Servicio:"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView55" />
-
-                    <TextView
-                        android:id="@+id/tvServiS"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView57"
-                        app:layout_constraintTop_toBottomOf="@+id/textView55" />
-
-                    <TextView
-                        android:id="@+id/textView59"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tipo de Servcio:"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView57" />
-
-                    <TextView
-                        android:id="@+id/tvTipoServ"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView59"
-                        app:layout_constraintTop_toBottomOf="@+id/tvServiS" />
-
-                    <TextView
-                        android:id="@+id/textView61"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fecha de inicio:"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView59" />
-
-                    <TextView
-                        android:id="@+id/tvFechIni"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView61"
-                        app:layout_constraintTop_toBottomOf="@+id/tvTipoServ" />
-
-                    <TextView
-                        android:id="@+id/textView63"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hora de inicio:"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView61" />
-
-                    <TextView
-                        android:id="@+id/tvHoraIni"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView63"
-                        app:layout_constraintTop_toBottomOf="@+id/tvFechIni" />
-
-                    <TextView
-                        android:id="@+id/textView65"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Observaciones iniciales:"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView63" />
-
-                    <TextView
-                        android:id="@+id/tvObservacion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:layout_constraintStart_toEndOf="@+id/textView65"
-                        app:layout_constraintTop_toBottomOf="@+id/tvHoraIni" />
-
-                    <Button
-                        android:id="@+id/button3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:onClick="terminarServicio"
-                        android:text="Terminar servicio"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView65" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clSeleccion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#CA3939"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clCbo">
-
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:text="Codigo:"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-                    <TextView
-                        android:id="@+id/textView20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="INFORMACIÓN DEL EQUIPO"
-                        android:textColor="#3E0F4A"
-                        android:textSize="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <EditText
-                        android:id="@+id/etCodigo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginEnd="4dp"
-                        android:ems="10"
-                        android:hint="CODIGO"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:text="Tipo de ascensor"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView12"
-                        tools:textSize="20dp" />
-
-                    <EditText
-                        android:id="@+id/etTipo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Tipo ascensor"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etCodigo" />
-
-                    <TextView
-                        android:id="@+id/textView16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:text="Marca"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-                    <EditText
-                        android:id="@+id/etMarca"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="10"
-                        android:hint="Marca"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etTipo" />
-
-                    <TextView
-                        android:id="@+id/textView17"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="28dp"
-                        android:text="Modelo"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
-                    <EditText
-                        android:id="@+id/etModelo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="10"
-                        android:hint="Modelo"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etMarca" />
-
-                    <TextView
-                        android:id="@+id/textView18"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:text="Código del cliente:"
-                        android:textSize="18dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-                    <EditText
-                        android:id="@+id/etCodeCliente"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="10"
-                        android:hint="Codigo cliente"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etModelo" />
-
-                    <TextView
-                        android:id="@+id/textView19"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:text="Garantia"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-                    <EditText
-                        android:id="@+id/etGarantia"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="10"
-                        android:hint="Garantia"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etCodeCliente" />
-
-                    <TextView
-                        android:id="@+id/textView21"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="50dp"
-                        android:text="INFORMACIÓN DEL EDIFICIO"
-                        android:textColor="#3E0F4A"
-                        android:textSize="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView19" />
-
-                    <TextView
-                        android:id="@+id/textView22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Nombre"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-                    <EditText
-                        android:id="@+id/etNomEd"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="10"
-                        android:hint="Nombre del edificio"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-                    <TextView
-                        android:id="@+id/textView23"
-                        android:layout_width="86dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Direccion"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
-                    <EditText
-                        android:id="@+id/etDireccion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="10"
-                        android:hint="Direccion"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etNomEd" />
-
-                    <TextView
-                        android:id="@+id/textView24"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="50dp"
-                        android:text="INFORMACIÓN DE SERVICIO"
-                        android:textColor="#3E0F4A"
-                        android:textSize="20dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView23" />
-
-                    <TextView
-                        android:id="@+id/textView25"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="Tipo de servicio"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView24" />
-
-                    <EditText
-                        android:id="@+id/etTipoSer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="10"
-                        android:hint="Tipo servicio"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView24" />
-
-                    <TextView
-                        android:id="@+id/textView26"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:text="Estado del Ascensor"
-                        android:textSize="18dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-                    <EditText
-                        android:id="@+id/etEstado"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ems="10"
-                        android:hint="Estado"
-                        android:inputType="text"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etTipoSer" />
-
-                    <TextView
-                        android:id="@+id/textView27"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:text="Observaciones de \ninicio de servicio"
-                        android:textSize="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
-                    <EditText
-                        android:id="@+id/etObservacion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:gravity="top|left"
-                        android:hint="Observaciones"
-                        android:inputType="textMultiLine"
-                        android:lines="6"
-                        android:minHeight="48dp"
-                        android:overScrollMode="always"
-                        android:scrollbarStyle="insideInset"
-                        android:scrollbars="vertical"
-                        android:scrollHorizontally="false"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etEstado" />
-
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="100dp"
-                        android:onClick="iniciarServicio"
-                        android:text="Iniciar Servicio"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView27" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clCbo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#836565"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="200dp">
-
-                    <TextView
-                        android:id="@+id/textView28"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="EQUIPO:"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tipollamada" />
-
-                    <Button
-                        android:id="@+id/button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="buscarEquipo"
-                        android:text="Buscar Equpo"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.443"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/codigo" />
-
-                    <Spinner
-                        android:id="@+id/codigo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="1dp"
-                        android:layout_marginEnd="1dp"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView28" />
-
-                    <Spinner
-                        android:id="@+id/tipollamada"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="1dp"
-                        android:minHeight="48dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-                    <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TIPO LLAMADA:"
-                        android:textColor="#1C0101"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/button4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="irPop"
-                        android:text="Button"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/button" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/tvInicio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="irPop"
-                    android:text="INICIAR"
-                    android:textColor="@color/cafe"
-                    android:textSize="30dp"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imgInicio" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="270dp"
-            android:layout_height="match_parent"
-            android:elevation="10dp"
-            android:visibility="gone">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="270dp"
-                android:layout_height="100dp"
-                android:background="@drawable/green_shape">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView31"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
-                        android:layout_marginTop="25dp"
-                        android:text="App Guia de Servicios"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <TextView
-                        android:id="@+id/textView29"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
-                        android:layout_marginTop="9dp"
-                        android:text="Menú de opciones"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView31" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </androidx.appcompat.widget.Toolbar>
-
-
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/nav_view"
-                android:layout_width="270dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                app:menu="@menu/nav_menu" />
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <ImageView
-            android:id="@+id/ivHamburgesa3"
-            android:layout_width="39dp"
-            android:layout_height="36dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:elevation="50dp"
-            android:minHeight="48dp"
-            android:onClick="mostrarMenu"
-            app:srcCompat="@drawable/menu_icon" />
-
-        <View
-            android:id="@+id/background_overlay3"
+            android:background="#C6BDBD"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/textView79"
+            app:layout_constraintTop_toBottomOf="@+id/textView79"
+            tools:layout_editor_absoluteX="114dp">
+
+            <TextView
+                android:id="@+id/textView67"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guia de servicio"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView68"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFORMACION DEL EQUIPO"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView67" />
+
+            <TextView
+                android:id="@+id/textView74"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFORMACION DEL EDIFICIO"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etModF" />
+
+            <TextView
+                android:id="@+id/textView69"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Codigo"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView68" />
+
+            <EditText
+                android:id="@+id/etCodF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Codigo"
+                android:inputType="text"
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView69" />
+
+            <TextView
+                android:id="@+id/textView71"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo de ascensor"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etCodF" />
+
+            <EditText
+                android:id="@+id/etTipAs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Ascensor"
+                android:inputType="text"
+
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView71" />
+
+            <TextView
+                android:id="@+id/textView72"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marca"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etTipAs" />
+
+            <EditText
+                android:id="@+id/etMarF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Marca"
+                android:inputType="text"
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView72" />
+
+            <TextView
+                android:id="@+id/textView73"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modelo"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etMarF" />
+
+            <EditText
+                android:id="@+id/etModF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Modelo"
+                android:inputType="text"
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView73" />
+
+            <TextView
+                android:id="@+id/textView75"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView74" />
+
+            <EditText
+                android:id="@+id/etNomEdF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nombre"
+                android:inputType="text"
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView75" />
+
+            <TextView
+                android:id="@+id/textView76"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Direccion"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etNomEdF" />
+
+            <EditText
+                android:id="@+id/etDirF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Direccion"
+                android:inputType="text"
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView76" />
+
+            <TextView
+                android:id="@+id/textView77"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFORMACION DE INICIO DEL SERVICIO"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etDirF" />
+
+            <TextView
+                android:id="@+id/textView78"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView77" />
+
+            <EditText
+                android:id="@+id/etFecF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Fecha"
+                android:inputType="text"
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView78" />
+
+            <TextView
+                android:id="@+id/textView79"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etFecF" />
+
+            <EditText
+                android:id="@+id/etHorF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Hora"
+                android:inputType="text"
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView79" />
+
+            <TextView
+                android:id="@+id/textView80"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo de servicio"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etHorF" />
+
+            <EditText
+                android:id="@+id/etTipSerF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Tipo servicio"
+                android:inputType="text"
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView80" />
+
+            <TextView
+                android:id="@+id/textView81"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estado del equipo al inicio del servicio"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etTipSerF" />
+
+            <EditText
+                android:id="@+id/etEstadoF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Estado"
+                android:inputType="text"
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView81" />
+
+            <TextView
+                android:id="@+id/textView82"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Observaciones de inicio de servicio"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etEstadoF" />
+
+            <EditText
+                android:id="@+id/etObsF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Obvservacion"
+                android:inputType="text"
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView82" />
+
+            <TextView
+                android:id="@+id/textView83"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="INFORMACION DE FINALIZACION DEL SERVICIO"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etObsF" />
+
+            <TextView
+                android:id="@+id/textView85"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estado del equipo despues del servicio"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView83" />
+
+            <Spinner
+                android:id="@+id/spEstadoF"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView85" />
+
+            <TextView
+                android:id="@+id/textView86"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Observaciones de finalizacion del servicio"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spEstadoF" />
+
+            <EditText
+                android:id="@+id/etUltimaComen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="top"
+
+                android:hint="Ingrese observacón"
+                android:inputType="text|textMultiLine"
+                android:lines="6"
+                android:minHeight="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView86" />
+
+            <TextView
+                android:id="@+id/textView88"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="¿Realizó el trabajo con ayudante?"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etUltimaComen" />
+
+            <Spinner
+                android:id="@+id/spOpayu"
+                android:layout_width="377dp"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView88" />
+
+            <TextView
+                android:id="@+id/tvCanyAyu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Ingrese cantidad de ayudantes"
+                android:textSize="17sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spOpayu" />
+
+            <Spinner
+                android:id="@+id/spCantAyud"
+                android:layout_width="377dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCanyAyu" />
+
+            <TextView
+                android:id="@+id/tvAyu1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingresa ayudante 1"
+                android:textSize="17sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spCantAyud" />
+
+            <Spinner
+                android:id="@+id/spAyu1"
+                android:layout_width="377dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAyu1" />
+
+            <TextView
+                android:id="@+id/tvAyu2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingresa ayudante 2"
+                android:textSize="17sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spAyu1" />
+
+            <Spinner
+                android:id="@+id/spAyu2"
+                android:layout_width="376dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAyu2" />
+
+            <Spinner
+                android:id="@+id/spPresupueto"
+                android:layout_width="377dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView94" />
+
+            <TextView
+                android:id="@+id/textView94"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Generar solicitud de presupuesto"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spAyu2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clConfirma"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#80000000"
-            android:visibility="gone" />
+            android:layout_marginTop="164dp"
+            android:background="#2F35A3"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFORMACION EQUIPO:"
+                android:textColor="#101010"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-</androidx.drawerlayout.widget.DrawerLayout>
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guia de servicio"
+                android:textColor="#0B0000"
+                android:textSize="30sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView30"
+                 />
+
+            <TextView
+                android:id="@+id/tvServicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Servicio: #"
+                android:textColor="#A59090"
+                android:textSize="40sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Codigo:"
+                android:textColor="#1C0606"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView32"
+                tools:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCodigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#131111"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView33"
+                app:layout_constraintTop_toBottomOf="@+id/textView32" />
+
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+            <TextView
+                android:id="@+id/tvTipo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView35"
+                app:layout_constraintTop_toBottomOf="@+id/tvCodigo" />
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marca:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView35" />
+
+            <TextView
+                android:id="@+id/tvMarca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView37"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipo" />
+
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modelo:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+            <TextView
+                android:id="@+id/tvModelo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView39"
+                app:layout_constraintTop_toBottomOf="@+id/tvMarca" />
+
+            <TextView
+                android:id="@+id/textView41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="INFORMACION TECNICO:"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+            <TextView
+                android:id="@+id/textView42"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cargo: "
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView41" />
+
+            <TextView
+                android:id="@+id/tvCargo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView42"
+                app:layout_constraintTop_toBottomOf="@+id/textView41" />
+
+            <TextView
+                android:id="@+id/textView44"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombres: "
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView42" />
+
+            <TextView
+                android:id="@+id/tvNomTec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView44"
+                app:layout_constraintTop_toBottomOf="@+id/tvCargo" />
+
+            <TextView
+                android:id="@+id/textView46"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apellido:"
+                android:textColor="#0B0A0A"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView44" />
+
+            <TextView
+                android:id="@+id/tvApeTec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@+id/textView46"
+                app:layout_constraintTop_toBottomOf="@+id/tvNomTec" />
+
+            <TextView
+                android:id="@+id/textView48"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RUT:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView46" />
+
+            <TextView
+                android:id="@+id/tvRutTec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView48"
+                app:layout_constraintTop_toBottomOf="@+id/tvApeTec" />
+
+            <TextView
+                android:id="@+id/textView50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="INFORMACION EDIFICIO:"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView48" />
+
+            <TextView
+                android:id="@+id/textView51"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView50" />
+
+            <TextView
+                android:id="@+id/tvNomEdi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#070707"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView51"
+                app:layout_constraintTop_toBottomOf="@+id/textView50" />
+
+            <TextView
+                android:id="@+id/textView53"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Direccion:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView51" />
+
+            <TextView
+                android:id="@+id/tvDireccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#121111"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView53"
+                app:layout_constraintTop_toBottomOf="@+id/tvNomEdi" />
+
+            <TextView
+                android:id="@+id/textView55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:text="INFORMACION SERVICIO:"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView53" />
+
+            <TextView
+                android:id="@+id/textView57"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Servicio:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+            <TextView
+                android:id="@+id/tvServiS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView57"
+                app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+            <TextView
+                android:id="@+id/textView59"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo de Servcio:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView57" />
+
+            <TextView
+                android:id="@+id/tvTipoServ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView59"
+                app:layout_constraintTop_toBottomOf="@+id/tvServiS" />
+
+            <TextView
+                android:id="@+id/textView61"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de inicio:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView59" />
+
+            <TextView
+                android:id="@+id/tvFechIni"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView61"
+                app:layout_constraintTop_toBottomOf="@+id/tvTipoServ" />
+
+            <TextView
+                android:id="@+id/textView63"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora de inicio:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView61" />
+
+            <TextView
+                android:id="@+id/tvHoraIni"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView63"
+                app:layout_constraintTop_toBottomOf="@+id/tvFechIni" />
+
+            <TextView
+                android:id="@+id/textView65"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Observaciones iniciales:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView63" />
+
+            <TextView
+                android:id="@+id/tvObservacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/textView65"
+                app:layout_constraintTop_toBottomOf="@+id/tvHoraIni" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:onClick="terminarServicio"
+                android:text="Terminar servicio"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView65" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSeleccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#CA3939"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clCbo">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Codigo:"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="INFORMACIÓN DEL EQUIPO"
+                android:textColor="#3E0F4A"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/etCodigo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="4dp"
+                android:ems="10"
+                android:hint="CODIGO"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Tipo de ascensor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                tools:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/etTipo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Tipo ascensor"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etCodigo" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Marca"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+            <EditText
+                android:id="@+id/etMarca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Marca"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etTipo" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Modelo"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+            <EditText
+                android:id="@+id/etModelo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Modelo"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etMarca" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Código del cliente:"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <EditText
+                android:id="@+id/etCodeCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Codigo cliente"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etModelo" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Garantia"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+            <EditText
+                android:id="@+id/etGarantia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Garantia"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etCodeCliente" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="INFORMACIÓN DEL EDIFICIO"
+                android:textColor="#3E0F4A"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Nombre"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+            <EditText
+                android:id="@+id/etNomEd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Nombre del edificio"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="86dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Direccion"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <EditText
+                android:id="@+id/etDireccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Direccion"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etNomEd" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="INFORMACIÓN DE SERVICIO"
+                android:textColor="#3E0F4A"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Tipo de servicio"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+            <EditText
+                android:id="@+id/etTipoSer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Tipo servicio"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Estado del Ascensor"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+            <EditText
+                android:id="@+id/etEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Estado"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etTipoSer" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Observaciones de \ninicio de servicio"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+            <EditText
+                android:id="@+id/etObservacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="top|left"
+                android:hint="Observaciones"
+                android:inputType="textMultiLine"
+                android:lines="6"
+                android:minHeight="48dp"
+                android:overScrollMode="always"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:scrollHorizontally="false"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etEstado" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:onClick="iniciarServicio"
+                android:text="Iniciar Servicio"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCbo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#836565"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="EQUIPO:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tipollamada" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="buscarEquipo"
+                android:text="Buscar Equpo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.443"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/codigo" />
+
+            <Spinner
+                android:id="@+id/codigo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+            <Spinner
+                android:id="@+id/tipollamada"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TIPO LLAMADA:"
+                android:textColor="#1C0101"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
