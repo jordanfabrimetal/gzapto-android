@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textViewName = findViewById(R.id.name);
-        textViewEmail = findViewById(R.id.email);
+        textViewEmail = findViewById(R.id.txtUsuario);
         textViewFetchResult = findViewById(R.id.fetchResult);
         buttonLogout = findViewById(R.id.logout);
         buttonFetchUser = findViewById(R.id.fetchProfile);

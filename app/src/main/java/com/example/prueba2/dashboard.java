@@ -13,9 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -26,7 +24,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -35,7 +32,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -47,7 +43,6 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 
@@ -56,7 +51,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +73,7 @@ public class dashboard extends AppCompatActivity {
     View backgroundOverlay;
     boolean muestra = true;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +95,33 @@ public class dashboard extends AppCompatActivity {
         ivHamburgesa = findViewById(R.id.ivHamburgesa);
         appBarLayout = findViewById(R.id.appBarLayout);
 
-        drawerLayout = findViewById(R.id.drawer_layout);
+        // Obtener las cadenas JSON desde las preferencias compartidas
+        sharedPreferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+        String tecnicosJsonString = sharedPreferences.getString("nombre_tecnicos", "");
+        String employeeIdsJsonString = sharedPreferences.getString("id_tecnicos", "");
+
+// Convertir las cadenas JSON de nuevo a listas
+        List<String> tecnicos1 = new ArrayList<>();
+        List<Integer> employeeIds1 = new ArrayList<>();
+
+        try {
+            JSONArray tecnicosJsonArray = new JSONArray(tecnicosJsonString);
+            JSONArray employeeIdsJsonArray = new JSONArray(employeeIdsJsonString);
+
+            for (int i = 0; i < tecnicosJsonArray.length(); i++) {
+                String fullName = tecnicosJsonArray.getString(i);
+                int employeeId = employeeIdsJsonArray.getInt(i);
+                tecnicos1.add(fullName);
+                employeeIds1.add(employeeId);
+            }
+
+            Log.d("Nombre de tecnicos: ", String.valueOf(tecnicos1));
+            Log.d("Los ID de los tecnicos: ", String.valueOf(employeeIds1));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        drawerLayout = findViewById(R.id.llPop7);
         navigationView = findViewById(R.id.nav_view);
         actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -139,7 +160,7 @@ public class dashboard extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
         int idSAP = sharedPreferences.getInt("idSAP",0);
         Log.d("ID SAP SHARED2", String.valueOf(idSAP));
-        obtenerDatosDesdeServidor("http://172.16.32.50/fabrimetal/gzapto/ajax/estado.php?op=traerdatosandroid");
+        obtenerDatosDesdeServidor("http://172.16.32.50/gzapto/ajax/estado.php?op=traerdatosandroid");
         ScheduledExecutorService scheduledExecutorService =
                 Executors.newSingleThreadScheduledExecutor();
 

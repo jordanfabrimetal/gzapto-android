@@ -8,13 +8,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#FFFFFF"
         tools:context=".Login2">
 
         <EditText
-            android:id="@+id/password"
-            android:layout_width="0dp"
+            android:id="@+id/txtPassword"
+            android:autofillHints="true"
+            android:layout_width="350dp"
             android:textColor="@color/green"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
@@ -24,17 +25,18 @@
             android:drawableStart="@drawable/password"
             android:drawablePadding="16dp"
             android:ems="10"
-            android:hint="Contraseña"
+            android:hint="@string/contrase_a"
             android:inputType="textPassword"
             android:textColorHint="@color/green"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
+            app:layout_constraintTop_toBottomOf="@+id/txtUsuario" />
 
         <ImageView
             android:id="@+id/imageView"
+            android:contentDescription="@string/background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -51,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="460dp"
-            android:text="Guías de \nServicio"
+            android:text="@string/gu_as_de_nservicio"
             android:textColor="#258d19"
             android:textSize="50sp"
             android:textStyle="bold"
@@ -61,9 +63,10 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/email"
-            android:layout_width="0dp"
+            android:id="@+id/txtUsuario"
+            android:layout_width="350dp"
             android:layout_height="50dp"
+            android:autofillHints="true"
             android:layout_marginStart="32dp"
             android:layout_marginTop="46dp"
             android:layout_marginEnd="32dp"
@@ -71,7 +74,7 @@
             android:drawableStart="@drawable/name"
             android:drawablePadding="16dp"
             android:ems="10"
-            android:hint="Usuario"
+            android:hint="@string/usuario"
             android:inputType="textPersonName"
             android:textColor="@color/green"
             android:textColorHint="@color/green"
@@ -81,32 +84,33 @@
             app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
         <ImageView
-            android:id="@+id/submit"
+            android:id="@+id/imgSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50sp"
             android:layout_marginEnd="32dp"
-            android:onClick="loggearse"
+            android:contentDescription="@string/iniciar_sesi_n"
+            android:onClick="moverAlLogin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/error"
+            app:layout_constraintTop_toBottomOf="@+id/tvError"
             app:srcCompat="@drawable/btn_arraw1" />
 
 
         <TextView
-            android:id="@+id/error"
+            android:id="@+id/tvError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Error al iniciar sesión"
+            android:text="@string/error_al_iniciar_sesi_n"
             android:textColor="@color/red"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/pbLogin"
             android:layout_marginTop="15dp"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
@@ -114,12 +118,13 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/error" />
+            app:layout_constraintTop_toBottomOf="@+id/tvError" />
 
         <ImageView
             android:id="@+id/imageView9"
             android:layout_width="61dp"
             android:layout_height="42dp"
+            android:contentDescription="@string/fabrimetal_logo"
             android:layout_marginStart="18dp"
             app:layout_constraintBottom_toTopOf="@+id/editTextText"
             app:layout_constraintStart_toStartOf="parent"
