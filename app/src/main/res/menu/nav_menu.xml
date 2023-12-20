@@ -21,7 +21,6 @@
                     android:icon="@drawable/firma_icon"
                     android:title="Firma de guías" />
 
-
             </menu>
         </item>
 

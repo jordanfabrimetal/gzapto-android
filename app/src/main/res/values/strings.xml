@@ -1,8 +1,5 @@
 <resources>
-    <!--Cambiar servidor de ser necesario -->
-    <string name="servidor">http://172.16.32.50/gzapto</string>
-
-    <string name="app_name">FabriMetal</string>
+    <string name="app_name">Prueba2</string>
     <string name="login">Guías de servicio</string>
     <string name="enter_email">Ingresar email</string>
     <string name="enter_password">Ingresa tu contraseña</string>
@@ -66,11 +63,4 @@
     <string name="finalizaci_n_del_servicio">Finalización del Servicio</string>
     <string name="estado_del_equipo_despues_del_servicio">Estado del equipo despues del servicio</string>
     <string name="observaciones_de_finalizaci_n_de_servicio">Observaciones de finalización de servicio</string>
-    <string name="contrase_a">Contraseña</string>
-    <string name="background">background</string>
-    <string name="gu_as_de_nservicio">Guías de \nServicio</string>
-    <string name="usuario">Usuario</string>
-    <string name="iniciar_sesi_n">Iniciar sesión</string>
-    <string name="error_al_iniciar_sesi_n">Error al iniciar sesión</string>
-    <string name="fabrimetal_logo">Fabrimetal_logo</string>
 </resources>
